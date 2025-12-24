@@ -12,3 +12,14 @@
   margin: 0px;
 }
 
+body {
+  overflow-y: hidden;
+}
+
+
+#dsotm {
+
+  display:flex;
+  flex-direction:row;
+
+}
