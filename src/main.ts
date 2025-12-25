@@ -107,15 +107,22 @@ export const TIME = (p5: p5) => {
   let angle = 0;
   let circleSize = 144;
   let offsets: number[][] = [];
-  let factor = 4;
+  let camX = 0;
+  let camY = 0;
+
+  let cols = Math.ceil(p5.width / circleSize) + 2;
+  let rows = Math.ceil(p5.height / circleSize) + 2;
 
   p5.setup = () => {
     p5.createCanvas(p5.windowHeight, p5.windowHeight);
     p5.angleMode(p5.DEGREES);
 
-    for (let i = 0; i < factor * p5.width; i += circleSize) {
+    cols = Math.ceil(p5.width / circleSize) + 2;
+    rows = Math.ceil(p5.height / circleSize) + 2;
+
+    for (let i = 0; i < cols; i++) {
       let row: number[] = [];
-      for (let j = 0; j < factor * p5.height; j += circleSize) {
+      for (let j = 0; j < rows; j++) {
         row.push(p5.random(0, 360));
       }
       offsets.push(row);
@@ -125,11 +132,21 @@ export const TIME = (p5: p5) => {
   p5.draw = () => {
     p5.background(0);
 
-    p5.translate(-p5.frameCount / 4, -p5.frameCount / 4);
+    let startCol = Math.floor(camX / circleSize);
+    let startRow = Math.floor(camY / circleSize);
 
-    for (let x = 0; x < factor * p5.width; x += circleSize) {
-      for (let y = 0; y < factor * p5.height; y += circleSize) {
-        let offset = 100 + offsets[x / circleSize][y / circleSize];
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        let tileX = startCol + i;
+        let tileY = startRow + j;
+
+        let x = tileX * circleSize - camX;
+        let y = tileY * circleSize - camY;
+
+        let ix = ((tileX % cols) + cols) % cols;
+        let iy = ((tileY % rows) + rows) % rows;
+
+        let offset = 100 + offsets[ix][iy];
 
         p5.push();
         p5.translate(x + circleSize / 2, y + circleSize / 2);
@@ -165,6 +182,9 @@ export const TIME = (p5: p5) => {
         p5.pop();
       }
     }
+
+    camX += 0.5;
+    camY += 0.5;
     angle += 0.25;
   };
 };
