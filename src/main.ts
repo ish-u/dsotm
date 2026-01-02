@@ -218,6 +218,60 @@ export const BREATH_IN_THE_AIR = (p5: p5) => {
   };
 };
 
+export const ON_THE_RUN = (p5: p5) => {
+  let palette = [
+    [128, 0, 128], // V
+    [2, 197, 242], // B
+    [103, 206, 0], // G
+    [255, 255, 0], // Y
+    [255, 128, 0], // O
+    [255, 0, 0], // R
+  ];
+
+  class Walker {
+    x: number;
+    y: number;
+    c: number[];
+    constructor(c: number[]) {
+      this.x = 0;
+      this.y = 0;
+      this.c = c;
+    }
+
+    move() {
+      this.x += p5.random(-2, 2);
+      this.y += p5.random(-2, 2);
+      p5.stroke(p5.color(this.c[0], this.c[1], this.c[2]));
+      p5.strokeWeight(10);
+      p5.point(this.x, this.y);
+      if (this.x > p5.height / 2 || this.x < -p5.height / 2) {
+        this.x = 0;
+      }
+
+      if (this.y > p5.height / 2 || this.y < -p5.height / 2) {
+        this.y = 0;
+      }
+    }
+  }
+
+  const walkers: Walker[] = [];
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+    p5.background(0);
+    for (let i = 0; i < 6; i++) {
+      walkers.push(new Walker(palette[i]));
+    }
+  };
+
+  p5.draw = () => {
+    p5.translate(p5.height / 2, p5.width / 2);
+    for (const walker of walkers) {
+      walker.move();
+    }
+  };
+};
+
 export const TIME = (p5: p5) => {
   let angle = 0;
   let circleSize = 144;
@@ -310,10 +364,12 @@ app.innerHTML = `
   <div id="dsotm">
     <div id="speak_to_me"></div>
     <div id="breath_in_the_air"></div>
+    <div id="on_the_run"></div>
     <div id="time"></div>
   </div>
 `;
 
 new p5(SPEAK_TO_ME, document.getElementById("speak_to_me")!);
 new p5(BREATH_IN_THE_AIR, document.getElementById("breath_in_the_air")!);
+new p5(ON_THE_RUN, document.getElementById("on_the_run")!);
 new p5(TIME, document.getElementById("time")!);
