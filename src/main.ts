@@ -358,6 +358,56 @@ export const TIME = (p5: p5) => {
   };
 };
 
+export const GREATEST_GIG = (p5: p5) => {
+  let t = 0;
+
+  function drawSpiral(phi: number) {
+    p5.rotate(p5.frameCount);
+
+    p5.beginShape();
+    for (let i = 0; i < 360 * 4; i++) {
+      let a = 1.8 * 16.18;
+      let radius = a * p5.pow(phi, i / 90);
+      let x = radius * p5.cos(i);
+      let y = radius * -p5.sin(i);
+      p5.vertex(x, y);
+      if (i === 0) {
+        p5.push();
+        p5.fill(255);
+        p5.circle(x, y, 16.8 / 3);
+        p5.pop();
+      }
+    }
+    p5.endShape();
+    p5.fill(255);
+    p5.circle(0, 0, 16.18);
+  }
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+    p5.angleMode(p5.DEGREES);
+  };
+
+  p5.draw = () => {
+    p5.background(0);
+    p5.stroke(255);
+    p5.strokeWeight(2.5);
+    p5.noFill();
+
+    p5.translate(p5.width / 2, p5.height / 2);
+
+    for (let r = 0; r < 10; r++) {
+      p5.push();
+      p5.scale(1 + t * 0.2);
+      p5.rotate(r * 36);
+      drawSpiral(1 + p5.sqrt(5) / 2);
+      p5.pop();
+    }
+
+    t += 0.0001;
+  };
+};
+
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `
@@ -366,6 +416,7 @@ app.innerHTML = `
     <div id="breath_in_the_air"></div>
     <div id="on_the_run"></div>
     <div id="time"></div>
+    <div id="greatest_gig"></div>
   </div>
 `;
 
@@ -373,3 +424,4 @@ new p5(SPEAK_TO_ME, document.getElementById("speak_to_me")!);
 new p5(BREATH_IN_THE_AIR, document.getElementById("breath_in_the_air")!);
 new p5(ON_THE_RUN, document.getElementById("on_the_run")!);
 new p5(TIME, document.getElementById("time")!);
+new p5(GREATEST_GIG, document.getElementById("greatest_gig")!);
