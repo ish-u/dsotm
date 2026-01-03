@@ -439,7 +439,7 @@ export const MONEY = (p5: p5) => {
     p5.background(0);
     p5.translate(p5.width / 2, p5.height / 2);
     let idx = 0;
-    for (let k = 10; k < p5.width / 2; k += 10) {
+    for (let k = 10; k < p5.width / 4; k += 10) {
       if (idx >= currencyGraphics.length) {
         idx = 0;
       }
@@ -459,6 +459,48 @@ export const MONEY = (p5: p5) => {
   };
 };
 
+export const ANY_COLOR_YOU_LIKE = (p5: p5) => {
+  let palette = [
+    [128, 0, 128], // V
+    [2, 197, 242], // B
+    [103, 206, 0], // G
+    [255, 255, 0], // Y
+    [255, 128, 0], // O
+    [255, 0, 0], // R
+  ].reverse();
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+  };
+
+  p5.draw = () => {
+    p5.background(0);
+    p5.translate(p5.height / 2, p5.height / 2);
+    let idx = 0;
+
+    p5.push();
+    p5.blendMode(p5.ADD);
+    p5.angleMode(p5.DEGREES);
+    p5.rectMode(p5.CENTER);
+    for (let i = 18; i < 360 * 4; i += 18) {
+      if (idx >= palette.length) {
+        idx = 0;
+      }
+      let c = palette[idx];
+      p5.fill(c[0], c[1], c[2], 1 / i);
+      p5.push();
+      p5.rotate(i / 5.4);
+      p5.rotate((p5.frameCount * i) / 720);
+      p5.stroke(c[0], c[1], c[2], (1080 * 36) / i);
+      p5.strokeWeight(1.8);
+      p5.rect(0, 0, i, i);
+      p5.pop();
+      idx++;
+    }
+    p5.pop();
+  };
+};
+
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `
@@ -469,6 +511,7 @@ app.innerHTML = `
     <div id="time"></div>
     <div id="greatest_gig"></div>
     <div id="money"></div>
+    <div id="any_color_you_like"></div>
   </div>
 `;
 
@@ -478,3 +521,4 @@ new p5(ON_THE_RUN, document.getElementById("on_the_run")!);
 new p5(TIME, document.getElementById("time")!);
 new p5(GREATEST_GIG, document.getElementById("greatest_gig")!);
 new p5(MONEY, document.getElementById("money")!);
+new p5(ANY_COLOR_YOU_LIKE, document.getElementById("any_color_you_like")!);
