@@ -1,3 +1,4 @@
+import type { Graphics } from "p5";
 import "./style.css";
 
 export const SPEAK_TO_ME = (p5: p5) => {
@@ -408,6 +409,56 @@ export const GREATEST_GIG = (p5: p5) => {
   };
 };
 
+export const MONEY = (p5: p5) => {
+  let spacing = 3;
+  let circleSize = 24;
+  let currencies = ["$", "€", "£", "¥", "₹", "₿"];
+  let currencyGraphics: Graphics[] = [];
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+    p5.angleMode(p5.DEGREES);
+    p5.fill(212, 175, 55);
+    p5.stroke("#8A6F1D");
+    p5.smooth();
+    p5.strokeWeight(2.4);
+    for (const currency of currencies) {
+      let currencyGraphic = p5.createGraphics(64, 64);
+      currencyGraphic.textAlign(p5.CENTER, p5.CENTER);
+      currencyGraphic.textSize(32);
+      currencyGraphic.noStroke();
+      currencyGraphic.fill("#8A6F1D");
+      currencyGraphic.text(currency, 32, 32);
+      currencyGraphics.push(currencyGraphic);
+    }
+    p5.imageMode(p5.CENTER);
+  };
+
+  p5.draw = () => {
+    p5.background(0);
+    p5.translate(p5.width / 2, p5.height / 2);
+    let idx = 0;
+    for (let k = 10; k < p5.width / 2; k += 10) {
+      if (idx >= currencyGraphics.length) {
+        idx = 0;
+      }
+      let moneyGraphic = currencyGraphics[idx];
+      idx++;
+
+      for (let i = 0; i < 360; i += 72 / (k / 10)) {
+        let r = spacing * k;
+        let direction = (k / 10) % 2 === 0 ? -p5.frameCount : p5.frameCount;
+        let speed = 10 / k;
+        let x = r * p5.cos(i + direction * speed);
+        let y = r * -p5.sin(i + direction * speed);
+        p5.circle(x, y, k / 24 + circleSize);
+        let s = k / 32 + circleSize;
+        p5.image(moneyGraphic, x, y, s, s);
+      }
+    }
+  };
+};
+
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `
@@ -417,6 +468,7 @@ app.innerHTML = `
     <div id="on_the_run"></div>
     <div id="time"></div>
     <div id="greatest_gig"></div>
+    <div id="money"></div>
   </div>
 `;
 
@@ -425,3 +477,4 @@ new p5(BREATH_IN_THE_AIR, document.getElementById("breath_in_the_air")!);
 new p5(ON_THE_RUN, document.getElementById("on_the_run")!);
 new p5(TIME, document.getElementById("time")!);
 new p5(GREATEST_GIG, document.getElementById("greatest_gig")!);
+new p5(MONEY, document.getElementById("money")!);
