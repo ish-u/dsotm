@@ -418,15 +418,16 @@ export const MONEY = (p5: p5) => {
   p5.setup = () => {
     p5.createCanvas(p5.windowHeight, p5.windowHeight);
     p5.angleMode(p5.DEGREES);
-    p5.fill(212, 175, 55);
-    p5.stroke("#8A6F1D");
     p5.smooth();
-    p5.strokeWeight(2.4);
     for (const currency of currencies) {
       let currencyGraphic = p5.createGraphics(64, 64);
       currencyGraphic.textAlign(p5.CENTER, p5.CENTER);
       currencyGraphic.textSize(32);
       currencyGraphic.noStroke();
+      currencyGraphic.fill("#8A6F1D");
+      currencyGraphic.circle(32, 32, 64);
+      currencyGraphic.fill(212, 175, 55);
+      currencyGraphic.circle(32, 32, 56);
       currencyGraphic.fill("#8A6F1D");
       currencyGraphic.text(currency, 32, 32);
       currencyGraphics.push(currencyGraphic);
@@ -451,8 +452,7 @@ export const MONEY = (p5: p5) => {
         let speed = 10 / k;
         let x = r * p5.cos(i + direction * speed);
         let y = r * -p5.sin(i + direction * speed);
-        p5.circle(x, y, k / 24 + circleSize);
-        let s = k / 32 + circleSize;
+        let s = k / 18 + circleSize;
         p5.image(moneyGraphic, x, y, s, s);
       }
     }
