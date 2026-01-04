@@ -67,7 +67,7 @@ export const SPEAK_TO_ME = (p5: p5) => {
       innerTriangleTop.y,
 
       innerTriangleBottom.x,
-      innerTriangleBottom.y,
+      innerTriangleBottom.y
     );
     gradient.addColorStop(0.25, "rgb(254 255 255 / 80%)");
     gradient.addColorStop(0.5, "rgb(100 130 140 / 50%)");
@@ -80,7 +80,7 @@ export const SPEAK_TO_ME = (p5: p5) => {
       innerTriangleTop.x,
       innerTriangleTop.y,
       innerTriangleBottom.x,
-      innerTriangleBottom.y,
+      innerTriangleBottom.y
     );
     p5.pop();
 
@@ -173,14 +173,14 @@ export const BREATH_IN_THE_AIR = (p5: p5) => {
           p5.color(
             oldColors[i / shapeSize][j / shapeSize][0],
             oldColors[i / shapeSize][j / shapeSize][1],
-            oldColors[i / shapeSize][j / shapeSize][2],
+            oldColors[i / shapeSize][j / shapeSize][2]
           ),
           p5.color(
             colors[i / shapeSize][j / shapeSize][0],
             colors[i / shapeSize][j / shapeSize][1],
-            colors[i / shapeSize][j / shapeSize][2],
+            colors[i / shapeSize][j / shapeSize][2]
           ),
-          transitionT,
+          transitionT
         );
         p5.stroke(color);
         p5.strokeWeight(2);
@@ -639,7 +639,7 @@ export const ECLIPSE = (p5: p5) => {
         let moon = new Moon(
           x + circleSize / 2,
           y + circleSize / 2,
-          circleSize / 2,
+          circleSize / 2
         );
         moons.push(moon);
       }
@@ -655,9 +655,8 @@ export const ECLIPSE = (p5: p5) => {
 };
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
-
 app.innerHTML = `
-  <div id="dsotm">
+  <div id="dsotm" style="width:100vh; overflow:scroll; margin:0 auto;">
     <div id="speak_to_me"></div>
     <div id="breath_in_the_air"></div>
     <div id="on_the_run"></div>
@@ -681,3 +680,38 @@ new p5(US_AND_THEM, document.getElementById("us_and_them")!);
 new p5(ANY_COLOR_YOU_LIKE, document.getElementById("any_color_you_like")!);
 new p5(BRAIN_DAMAGE, document.getElementById("brain_damage")!);
 new p5(ECLIPSE, document.getElementById("eclipse")!);
+
+const githubButton = document.createElement("button");
+githubButton.innerHTML = "github";
+githubButton.style = `
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 12px;
+  font-size: 16px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+
+`;
+githubButton.addEventListener("click", () => {
+  window.open("https://github.com/ish-u/dsotm", "_blank");
+});
+document.body.appendChild(githubButton);
+
+const infoDiv = document.createElement("div");
+infoDiv.innerHTML = `
+  <div id="info">
+    <div id="info_content">
+      <h6>dsotm</h6>
+      <p>A collection of p5.js sketches inspired by the Pink Floyd album - <a href="https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon">The Dark Side of the Moon</a>.</p>
+    </div>
+  </div>
+`;
+infoDiv.style = `
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 15%;
+`;
+document.body.appendChild(infoDiv);
