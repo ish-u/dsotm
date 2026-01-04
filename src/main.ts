@@ -656,7 +656,7 @@ export const ECLIPSE = (p5: p5) => {
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 app.innerHTML = `
-  <div id="dsotm" style="width:100vh; overflow:scroll; margin:0 auto;">
+  <div id="dsotm" style="width:100vh; overflow-x:scroll; overflow-y:hidden; margin:0 auto;">
     <div id="speak_to_me"></div>
     <div id="breath_in_the_air"></div>
     <div id="on_the_run"></div>
