@@ -459,6 +459,51 @@ export const MONEY = (p5: p5) => {
   };
 };
 
+export const US_AND_THEM = (p5: p5) => {
+  class Ball {
+    x: number;
+    y: number;
+    s: number;
+    speed: number;
+    constructor(s: number) {
+      this.s = s;
+      this.x = p5.random(0, p5.width);
+      this.y = p5.random(0, p5.height);
+      this.speed = p5.random(1, 2);
+    }
+
+    draw() {
+      if (this.x > p5.width) {
+        this.x = -this.s;
+        this.y = p5.random(0, p5.height);
+      }
+      p5.push();
+      p5.fill(this.x >= p5.width / 2 ? 0 : 255);
+      p5.circle(this.x + this.s / 2, this.y, this.s);
+      this.x += this.speed;
+      p5.pop();
+    }
+  }
+
+  let balls: Ball[] = [];
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+    for (let i = 0; i < 128; i++) {
+      balls.push(new Ball(p5.random(10, 50)));
+    }
+    p5.noStroke();
+  };
+
+  p5.draw = () => {
+    p5.background(0);
+    p5.rect(p5.height / 2, 0, p5.width / 2, p5.height);
+    for (const ball of balls) {
+      ball.draw();
+    }
+  };
+};
+
 export const ANY_COLOR_YOU_LIKE = (p5: p5) => {
   let palette = [
     [128, 0, 128], // V
@@ -619,6 +664,7 @@ app.innerHTML = `
     <div id="time"></div>
     <div id="greatest_gig"></div>
     <div id="money"></div>
+    <div id="us_and_them"></div>
     <div id="any_color_you_like"></div>
     <div id="brain_damage"></div>
     <div id="eclipse"></div>
@@ -631,6 +677,7 @@ new p5(ON_THE_RUN, document.getElementById("on_the_run")!);
 new p5(TIME, document.getElementById("time")!);
 new p5(GREATEST_GIG, document.getElementById("greatest_gig")!);
 new p5(MONEY, document.getElementById("money")!);
+new p5(US_AND_THEM, document.getElementById("us_and_them")!);
 new p5(ANY_COLOR_YOU_LIKE, document.getElementById("any_color_you_like")!);
 new p5(BRAIN_DAMAGE, document.getElementById("brain_damage")!);
 new p5(ECLIPSE, document.getElementById("eclipse")!);
