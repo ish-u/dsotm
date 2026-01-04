@@ -501,6 +501,60 @@ export const ANY_COLOR_YOU_LIKE = (p5: p5) => {
   };
 };
 
+export const BRAIN_DAMAGE = (p5: p5) => {
+  let rows: number;
+  let cols: number;
+  let tileSize = 0;
+  const tileType: number[][] = [];
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+    tileSize = p5.windowHeight / 24;
+    rows = p5.floor(p5.windowHeight / tileSize);
+    cols = p5.floor(p5.windowHeight / tileSize);
+
+    for (let i = 0; i <= rows; i++) {
+      const row = [];
+      for (let j = 0; j <= cols; j++) {
+        row.push(p5.floor(p5.random(2)));
+      }
+      tileType.push(row);
+    }
+
+    p5.angleMode(p5.DEGREES);
+    p5.noFill();
+    p5.stroke(255);
+    p5.strokeWeight(3.6);
+  };
+
+  p5.draw = () => {
+    p5.background(0);
+
+    for (let i = 0; i <= rows; i++) {
+      for (let j = 0; j <= cols; j++) {
+        let x = tileSize * i;
+        let y = tileSize * j;
+
+        p5.push();
+        p5.translate(x, y);
+        p5.rotate(p5.frameCount / 2);
+        if (tileType[i][j] === 0) {
+          p5.push();
+          p5.arc(0, 0, tileSize, tileSize, 0, 90);
+          p5.arc(tileSize, tileSize, tileSize, tileSize, 180, 270);
+          p5.pop();
+        } else {
+          p5.push();
+          p5.arc(tileSize, 0, tileSize, tileSize, 90, 180);
+          p5.arc(0, tileSize, tileSize, tileSize, 270, 360);
+          p5.pop();
+        }
+        p5.pop();
+      }
+    }
+  };
+};
+
 export const ECLIPSE = (p5: p5) => {
   class Moon {
     x: number;
@@ -566,6 +620,7 @@ app.innerHTML = `
     <div id="greatest_gig"></div>
     <div id="money"></div>
     <div id="any_color_you_like"></div>
+    <div id="brain_damage"></div>
     <div id="eclipse"></div>
   </div>
 `;
@@ -577,4 +632,5 @@ new p5(TIME, document.getElementById("time")!);
 new p5(GREATEST_GIG, document.getElementById("greatest_gig")!);
 new p5(MONEY, document.getElementById("money")!);
 new p5(ANY_COLOR_YOU_LIKE, document.getElementById("any_color_you_like")!);
+new p5(BRAIN_DAMAGE, document.getElementById("brain_damage")!);
 new p5(ECLIPSE, document.getElementById("eclipse")!);
