@@ -715,3 +715,39 @@ infoDiv.style = `
   width: 15%;
 `;
 document.body.appendChild(infoDiv);
+
+let playButton = document.createElement("button");
+let isRunning: number | null = null;
+playButton.innerHTML = "play";
+playButton.style = `
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  padding: 12px 12px;
+  font-size: 16px;
+  border: 1px solid black;
+  color: black;
+  background: white;
+  cursor: pointer;
+`;
+playButton.addEventListener("click", () => {
+  if (isRunning === null) {
+    last = performance.now();
+    isRunning = requestAnimationFrame(smoothScroll);
+    playButton.innerHTML = "pause";
+  } else {
+    cancelAnimationFrame(isRunning);
+    isRunning = null;
+    playButton.innerHTML = "play";
+  }
+});
+document.body.appendChild(playButton);
+
+let last = performance.now();
+const speed = 64;
+function smoothScroll(now: number) {
+  const dt = (now - last) / 1000;
+  last = now;
+  document.getElementById("dsotm")!.scrollLeft += speed * dt;
+  isRunning = requestAnimationFrame(smoothScroll);
+}
