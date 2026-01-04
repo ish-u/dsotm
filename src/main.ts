@@ -501,6 +501,60 @@ export const ANY_COLOR_YOU_LIKE = (p5: p5) => {
   };
 };
 
+export const ECLIPSE = (p5: p5) => {
+  class Moon {
+    x: number;
+    y: number;
+    s: number;
+    phase: number;
+    constructor(x: number, y: number, s: number) {
+      this.x = x;
+      this.y = y;
+      this.s = s;
+      this.phase = 0;
+    }
+
+    show() {
+      this.phase = ((p5.frameCount / 100 + p5.PI / 2) % p5.PI) - p5.PI / 2;
+      p5.circle(this.x, this.y, this.s);
+      p5.push();
+      p5.fill(0);
+      p5.circle(this.x + p5.sin(this.phase) * this.s, this.y, this.s);
+      p5.pop();
+    }
+  }
+
+  let moons: Moon[] = [];
+  let circleSize = 0;
+
+  p5.setup = () => {
+    p5.createCanvas(p5.windowHeight, p5.windowHeight);
+    circleSize = p5.windowHeight / 4;
+    let rows = p5.floor(p5.windowHeight / circleSize);
+    let cols = p5.floor(p5.windowHeight / circleSize);
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        let x = circleSize * i;
+        let y = circleSize * j;
+        let moon = new Moon(
+          x + circleSize / 2,
+          y + circleSize / 2,
+          circleSize / 2,
+        );
+        moons.push(moon);
+      }
+    }
+  };
+
+  p5.draw = () => {
+    p5.background(0);
+    for (const moon of moons) {
+      moon.show();
+    }
+  };
+};
+
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `
@@ -512,6 +566,7 @@ app.innerHTML = `
     <div id="greatest_gig"></div>
     <div id="money"></div>
     <div id="any_color_you_like"></div>
+    <div id="eclipse"></div>
   </div>
 `;
 
@@ -522,3 +577,4 @@ new p5(TIME, document.getElementById("time")!);
 new p5(GREATEST_GIG, document.getElementById("greatest_gig")!);
 new p5(MONEY, document.getElementById("money")!);
 new p5(ANY_COLOR_YOU_LIKE, document.getElementById("any_color_you_like")!);
+new p5(ECLIPSE, document.getElementById("eclipse")!);
