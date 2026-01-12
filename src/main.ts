@@ -102,6 +102,11 @@ export const SPEAK_TO_ME = (p5: p5) => {
     p5.triangle(x1 + 20, y1 - 10, x2 - 20, y2 - 10, x3, y3 + 20);
     p5.pop();
   };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
+  };
 };
 
 export const BREATH_IN_THE_AIR = (p5: p5) => {
@@ -217,6 +222,11 @@ export const BREATH_IN_THE_AIR = (p5: p5) => {
     }
     z = p5.frameCount * 0.01;
   };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
+  };
 };
 
 export const ON_THE_RUN = (p5: p5) => {
@@ -270,6 +280,11 @@ export const ON_THE_RUN = (p5: p5) => {
     for (const walker of walkers) {
       walker.move();
     }
+  };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
   };
 };
 
@@ -357,6 +372,11 @@ export const TIME = (p5: p5) => {
     camY += 0.5;
     angle += 0.25;
   };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
+  };
 };
 
 export const GREATEST_GIG = (p5: p5) => {
@@ -406,6 +426,11 @@ export const GREATEST_GIG = (p5: p5) => {
     }
 
     t += 0.0001;
+  };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
   };
 };
 
@@ -457,6 +482,11 @@ export const MONEY = (p5: p5) => {
       }
     }
   };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
+  };
 };
 
 export const US_AND_THEM = (p5: p5) => {
@@ -502,6 +532,11 @@ export const US_AND_THEM = (p5: p5) => {
       ball.draw();
     }
   };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
+  };
 };
 
 export const ANY_COLOR_YOU_LIKE = (p5: p5) => {
@@ -543,6 +578,11 @@ export const ANY_COLOR_YOU_LIKE = (p5: p5) => {
       idx++;
     }
     p5.pop();
+  };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
   };
 };
 
@@ -598,6 +638,11 @@ export const BRAIN_DAMAGE = (p5: p5) => {
       }
     }
   };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
+  };
 };
 
 export const ECLIPSE = (p5: p5) => {
@@ -651,6 +696,11 @@ export const ECLIPSE = (p5: p5) => {
     for (const moon of moons) {
       moon.show();
     }
+  };
+
+  p5.windowResized = () => {
+    const minSide = Math.min(p5.windowWidth, p5.windowHeight);
+    p5.resizeCanvas(minSide, minSide);
   };
 };
 
