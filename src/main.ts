@@ -659,7 +659,10 @@ app.innerHTML = `
   <div id="sidebar">
     <div id="info_content">
       <h6>dsotm</h6>
-      <p>A collection of p5.js sketches inspired by the Pink Floyd's <a href="https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon">The Dark Side of the Moon</a> - </p>
+      <p>
+        A collection of p5.js sketches inspired by the <br />
+        Pink Floyd's <a href="https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon">The Dark Side of the Moon</a> - <br />
+      </p>
     </div>
     <div id="sketch_list">
       <a id="speak_to_me_link">Speak to Me</a>
