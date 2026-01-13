@@ -16,7 +16,50 @@ body {
   overflow-y: hidden;
 }
 
+#app {
+  display: flex;
+}
+
+#sketch_list {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+  gap: 4px;
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  font-size: 15px;
+}
+
 #dsotm {
   display: flex;
   flex-direction: row;
+  width: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 auto;
+}
+
+#sidebar {
+  width: 20vw;
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#footer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    display: none;
+  }
+  #dsotm {
+    width: 100vw;
+  }
 }

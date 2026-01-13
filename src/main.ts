@@ -656,7 +656,29 @@ export const ECLIPSE = (p5: p5) => {
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 app.innerHTML = `
-  <div id="dsotm" style="width:100vh; overflow-x:scroll; overflow-y:hidden; margin:0 auto;">
+  <div id="sidebar">
+    <div id="info_content">
+      <h6>dsotm</h6>
+      <p>A collection of p5.js sketches inspired by the Pink Floyd's <a href="https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon">The Dark Side of the Moon</a> - </p>
+    </div>
+    <div id="sketch_list">
+      <a id="speak_to_me_link">Speak to Me</a>
+      <a id="breath_in_the_air_link">Breathe (In The Air)</a>
+      <a id="on_the_run_link">On The Run</a>
+      <a id="time_link">Time</a>
+      <a id="greatest_gig_link">The Great Gig in the Sky</a>
+      <a id="money_link">Money</a>
+      <a id="us_and_them_link">Us and Them</a>
+      <a id="any_color_you_like_link">Any Color You Like</a>
+      <a id="brain_damage_link">Brain Damage</a>
+      <a id="eclipse_link">Eclipse</a>
+    </div>
+    <div id="footer">
+        <a href="https://github.com/ish-u/dsotm" target="_blank">github</a>
+        <a href="https://anmol.ninja" target="_blank">anmol.ninja</a>
+    </div>
+  </div>
+  <div id="dsotm">
     <div id="speak_to_me"></div>
     <div id="breath_in_the_air"></div>
     <div id="on_the_run"></div>
@@ -681,73 +703,14 @@ new p5(ANY_COLOR_YOU_LIKE, document.getElementById("any_color_you_like")!);
 new p5(BRAIN_DAMAGE, document.getElementById("brain_damage")!);
 new p5(ECLIPSE, document.getElementById("eclipse")!);
 
-const githubButton = document.createElement("button");
-githubButton.innerHTML = "github";
-githubButton.style = `
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  padding: 12px 12px;
-  font-size: 16px;
-  border: 1px solid black;
-  background: white;
-  cursor: pointer;
-
-`;
-githubButton.addEventListener("click", () => {
-  window.open("https://github.com/ish-u/dsotm", "_blank");
-});
-document.body.appendChild(githubButton);
-
-const infoDiv = document.createElement("div");
-infoDiv.innerHTML = `
-  <div id="info">
-    <div id="info_content">
-      <h6>dsotm</h6>
-      <p>A collection of p5.js sketches inspired by the Pink Floyd album - <a href="https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon">The Dark Side of the Moon</a>.</p>
-    </div>
-  </div>
-`;
-infoDiv.style = `
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  width: 15%;
-`;
-document.body.appendChild(infoDiv);
-
-let playButton = document.createElement("button");
-let isRunning: number | null = null;
-playButton.innerHTML = "play";
-playButton.style = `
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  padding: 12px 12px;
-  font-size: 16px;
-  border: 1px solid black;
-  color: black;
-  background: white;
-  cursor: pointer;
-`;
-playButton.addEventListener("click", () => {
-  if (isRunning === null) {
-    last = performance.now();
-    isRunning = requestAnimationFrame(smoothScroll);
-    playButton.innerHTML = "pause";
-  } else {
-    cancelAnimationFrame(isRunning);
-    isRunning = null;
-    playButton.innerHTML = "play";
-  }
-});
-document.body.appendChild(playButton);
-
-let last = performance.now();
-const speed = 64;
-function smoothScroll(now: number) {
-  const dt = (now - last) / 1000;
-  last = now;
-  document.getElementById("dsotm")!.scrollLeft += speed * dt;
-  isRunning = requestAnimationFrame(smoothScroll);
+const sketchList = document
+  .getElementById("sketch_list")!
+  .getElementsByTagName("a");
+for (const a of sketchList) {
+  a.addEventListener("click", () => {
+    console.log(a.id);
+    const sketch = a.id.split("_link")[0];
+    const sketchElement = document.getElementById(sketch)!;
+    sketchElement.scrollIntoView({ behavior: "smooth" });
+  });
 }
